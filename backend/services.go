@@ -10,8 +10,19 @@ var services = []datamodels.Service{
 	{ID: "2", Name: "Service B", Description: "Description for Service B", Versions: []string{"v2.0", "v2.1"}},
 }
 
-func GetAllServices() ([]datamodels.Service, error) {
-	return services, nil
+func GetAllServices(page, limit int) ([]datamodels.Service, error) {
+	start := (page - 1) * limit
+	end := start + limit
+
+	if start >= len(services) {
+		return []datamodels.Service{}, nil
+	}
+
+	if end > len(services) {
+		end = len(services)
+	}
+
+	return services[start:end], nil
 }
 
 func GetServiceByID(id string) (datamodels.Service, error) {
