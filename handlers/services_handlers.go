@@ -24,7 +24,10 @@ func GetServices(w http.ResponseWriter, r *http.Request) {
 		limit = 10
 	}
 
-	services, err := backend.GetAllServices(page, limit)
+	// Get name parameter to support filtering
+	name := r.URL.Query().Get("name")
+
+	services, err := backend.GetAllServices(page, limit, name)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
