@@ -2,6 +2,7 @@ package backend
 
 import (
 	"database/sql"
+	"fmt"
 	"service-catalog/datamodels"
 	"service-catalog/logger"
 
@@ -45,7 +46,7 @@ func GetService(db *sql.DB, id string) (*datamodels.Service, error) {
 			logger.Log.WithFields(logrus.Fields{
 				"service_id": id,
 			}).Info("No service found in database with the given ID")
-			return nil, nil
+			return nil, fmt.Errorf("no service found for ID %s", id)
 		}
 		logger.Log.WithFields(logrus.Fields{
 			"error": err.Error(),
