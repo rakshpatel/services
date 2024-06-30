@@ -98,7 +98,7 @@ func GetServiceVersionsDB(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	versions, err := backend.GetServiceVersionsDB(backend.DB, id)
-	if len(versions) == 0 {
+	if versions == nil {
 		logger.Log.WithFields(logrus.Fields{
 			"error": err.Error(),
 		}).Error("Versions not found")
