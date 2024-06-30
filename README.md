@@ -55,7 +55,7 @@ Start by cloning the repository to your local machine. To do this, open a termin
 
 ```bash
 git clone https://github.com/rakshpatel/services.git
-cd service-catalog
+cd services
 ```
 
 ### Using Docker Compose
