@@ -39,10 +39,31 @@ clean: stop
 .PHONY: rebuild
 rebuild: clean build
 
+# Docker Compose commands
+.PHONY: up
+up:
+	@echo "Starting all services with Docker Compose..."
+	docker-compose up -d
+
+.PHONY: down
+down:
+	@echo "Stopping and removing all services with Docker Compose..."
+	docker-compose down
+
+.PHONY: ps
+ps:
+	@echo "Listing all running Docker services..."
+	docker-compose ps
+
+.PHONY: logs
+logs:
+	@echo "Displaying logs from Docker services..."
+	docker-compose logs
+
 # Display help
 .PHONY: help
 help:
-	@echo "Makefile for managing the Docker image for the Go service"
+	@echo "Makefile for managing the Docker image for the Go service and Docker Compose environments"
 	@echo ""
 	@echo "Usage:"
 	@echo "  make [target]"
@@ -54,5 +75,8 @@ help:
 	@echo "  stop       Stop and remove the running container"
 	@echo "  clean      Remove the Docker image and container"
 	@echo "  rebuild    Rebuild the Docker image"
+	@echo "  up         Start all services in detached mode using Docker Compose"
+	@echo "  down       Stop all services using Docker Compose"
+	@echo "  ps         List Docker Compose services"
+	@echo "  logs       Display logs for Docker Compose services"
 	@echo "  help       Display this help message"
-
