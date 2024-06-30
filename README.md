@@ -6,9 +6,14 @@ The Service-Catalog project is a backend application designed to serve data abou
 
 ## Features
 
-- **User Authentication**: Secure login process and JWT-based authentication for API access. Current implementation is mock     authetnication and doesnt integrate with external application.
+- **User Authentication**: Secure login process and JWT-based authentication for API access. Current implementation is mock     authetnication and doesnt integrate with external integration.
 - **Service Versions**: Ability to handle multiple versions per service.
 - **Docker Integration**: Containerized application and database for easy deployment and scaling.
+
+## Assumptions
+- Authentication and Authorization is mocked and not using any external integration.
+- PostgreSQL is used, however only GET APIs are implemented.
+- Application startup will initialize DB with mock data for 100 services.
 
 ## Project Structure
 
