@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"service-catalog/auth"
 	"service-catalog/backend"
-	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -37,24 +37,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetServices(w http.ResponseWriter, r *http.Request) {
-
-	// Get parameters for pagination
-	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
-	limit, _ := strconv.Atoi(r.URL.Query().Get("limit"))
-
-	// Set page, limit to default if not provided
-	if page <= 0 {
-		page = 1
-	}
-
-	if limit <= 0 {
-		limit = 10
-	}
-
-	// Get name parameter to support filtering
-	name := r.URL.Query().Get("name")
-
-	services, err := backend.GetAllServices(page, limit, name)
+	log.Println("GetServices called")
+	services, err := backend.GetServices(backend.DB)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -63,22 +47,26 @@ func GetServices(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetService(w http.ResponseWriter, r *http.Request) {
+	log.Println("GetService called")
 	vars := mux.Vars(r)
 	id := vars["id"]
-
-	service, err := backend.GetServiceByID(id)
+	service, err := backend.GetService(backend.DB, id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if service == nil {
+		http.Error(w, "Service not found", http.StatusNotFound)
 		return
 	}
 	json.NewEncoder(w).Encode(service)
 }
 
-func GetServiceVersions(w http.ResponseWriter, r *http.Request) {
+func GetServiceVersionsDB(w http.ResponseWriter, r *http.Request) {
+	log.Println("GetServiceVersions called")
 	vars := mux.Vars(r)
 	id := vars["id"]
-
-	versions, err := backend.GetServiceVersions(id)
+	versions, err := backend.GetServiceVersionsDB(backend.DB, id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
