@@ -6,6 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// Logger implementation
 var Log *logrus.Logger
 
 func init() {

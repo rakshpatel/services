@@ -8,7 +8,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// DB
+// GetServices gets all the services from the PG DB
 func GetServices(db *sql.DB) ([]datamodels.Service, error) {
 	logger.Log.Info("Fetching all services from the database")
 	rows, err := db.Query("SELECT id, name, description FROM services")
@@ -35,6 +35,7 @@ func GetServices(db *sql.DB) ([]datamodels.Service, error) {
 	return services, nil
 }
 
+// GetService fetches a single service from DB
 func GetService(db *sql.DB, id string) (*datamodels.Service, error) {
 	logger.Log.Info("Fetching a service from the database")
 	var service datamodels.Service
@@ -54,6 +55,7 @@ func GetService(db *sql.DB, id string) (*datamodels.Service, error) {
 	return &service, nil
 }
 
+// GetServiceVersionsDB, fetches version related data for given service
 func GetServiceVersionsDB(db *sql.DB, id string) ([]string, error) {
 	rows, err := db.Query("SELECT version FROM service_versions WHERE service_id = $1", id)
 	if err != nil {

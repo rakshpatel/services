@@ -17,6 +17,7 @@ type Credentials struct {
 	Password string `json:"password"`
 }
 
+// Login, mocks the authentication and provides mock JWT
 func Login(w http.ResponseWriter, r *http.Request) {
 	var creds Credentials
 	err := json.NewDecoder(r.Body).Decode(&creds)
@@ -38,6 +39,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// GetServices is handler when /v1/services API is called and calls DB function to get the data
 func GetServices(w http.ResponseWriter, r *http.Request) {
 	logger.Log.WithFields(logrus.Fields{
 		"method":   r.Method,
@@ -55,6 +57,7 @@ func GetServices(w http.ResponseWriter, r *http.Request) {
 	logger.Log.Info("Services retrieved successfully")
 }
 
+// GetServices is handler when /v1/service/{ID} API is called and calls DB function to get the data
 func GetService(w http.ResponseWriter, r *http.Request) {
 	logger.Log.WithFields(logrus.Fields{
 		"method":   r.Method,
@@ -81,6 +84,7 @@ func GetService(w http.ResponseWriter, r *http.Request) {
 	logger.Log.Info("Service retrieved successfully")
 }
 
+// GetServiceVersionsDB is handler when /v1/services/{id}/versions API is called and calls DB function to get the data
 func GetServiceVersionsDB(w http.ResponseWriter, r *http.Request) {
 	log.Println("GetServiceVersions called")
 	vars := mux.Vars(r)

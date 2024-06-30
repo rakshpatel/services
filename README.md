@@ -15,7 +15,7 @@ The Service-Catalog project is a backend application designed to serve data abou
 - PostgreSQL is used, however only GET APIs are implemented.
 - Application startup will initialize DB with mock data for 100 services.
 - No implementation of filter, sort or pagination for now.
-- logging has been implemented but not in exhaustive manner.
+- Logging has been implemented but not in exhaustive manner.
 
 ## Project Structure
 

@@ -16,6 +16,7 @@ type Claims struct {
 	jwt.StandardClaims
 }
 
+// Mocks generating JWT with 10 mins validity
 func GenerateJWT(username string) (string, error) {
 	expirationTime := time.Now().Add(10 * time.Minute)
 	claims := &Claims{
@@ -37,6 +38,7 @@ type contextKey string
 
 const userContextKey contextKey = "user"
 
+// Authorization, middleware used for API authorization
 func JWTAuth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		authHeader := r.Header.Get("Authorization")

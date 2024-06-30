@@ -11,6 +11,8 @@ import (
 
 var DB *sql.DB
 
+// DB initialization, connecting to PG DB
+// Creates connection string and connects to PG DB else throws error
 func InitDB(cfg config.Config) {
 	var err error
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",

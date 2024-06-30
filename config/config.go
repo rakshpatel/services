@@ -7,6 +7,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// Config, defines DB construct
 type Config struct {
 	DBUser     string
 	DBPassword string
@@ -15,6 +16,7 @@ type Config struct {
 	DBPort     string
 }
 
+// Loding config to Config struct for DB
 func LoadConfig() Config {
 	err := godotenv.Load()
 	if err != nil {
@@ -32,6 +34,7 @@ func LoadConfig() Config {
 	return config
 }
 
+// Fetch given key
 func getEnv(key, fallback string) string {
 	if value, exists := os.LookupEnv(key); exists {
 		return value
