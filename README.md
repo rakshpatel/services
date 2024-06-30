@@ -72,13 +72,19 @@ make up
 
 # Stat application with docker-compose tool
 docker-compose up -d
+```
 
+#### To examie the logs 
+```bash
 # Logs with make
 make logs
 
 # Logs with docker-compose tool
 docker-compose logs
+```
 
+#### To stop the Services
+```bash
 # Stop the application with make
 make down
 
