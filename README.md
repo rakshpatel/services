@@ -86,3 +86,37 @@ make down
 docker-compose down
 
 ```
+
+## Accessing the API
+
+Once the application is running, you can access the API at `http://localhost:8080/v1/`. Below are some examples of how you can interact with the API using `curl`, a command-line tool that can be used to send requests to the server.
+
+### Authenticate and Receive a JWT
+
+Use the `/login` endpoint to authenticate and receive a JWT. You need to replace `'your_username'` and `'your_password'` with your actual login credentials. For mock you can user username as `user` and password as `password`.
+
+```bash
+curl -X POST http://localhost:8080/v1/login \
+-H "Content-Type: application/json" \
+-d '{"username": "your_username", "password": "your_password"}'
+```
+
+### List All Services
+```bash
+curl -X GET http://localhost:8080/v1/services \
+-H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+### Retrieve a specific service
+```bash
+# This retrieves the detaisl for service with ID 1, replace 1 with any value between 1 to 100.
+curl -X GET http://localhost:8080/v1/services/1 \
+-H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+```
+
+### Retrieve versions for a service
+```bash
+curl -X GET http://localhost:8080/v1/services/1/versions \
+-H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
