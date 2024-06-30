@@ -6,8 +6,10 @@ import (
 	"net/http"
 	"service-catalog/auth"
 	"service-catalog/backend"
+	"service-catalog/logger"
 
 	"github.com/gorilla/mux"
+	"github.com/sirupsen/logrus"
 )
 
 type Credentials struct {
@@ -37,29 +39,46 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetServices(w http.ResponseWriter, r *http.Request) {
-	log.Println("GetServices called")
+	logger.Log.WithFields(logrus.Fields{
+		"method":   r.Method,
+		"endpoint": "/services",
+	}).Info("Handling the get services request")
 	services, err := backend.GetServices(backend.DB)
 	if err != nil {
+		logger.Log.WithFields(logrus.Fields{
+			"error": err.Error(),
+		}).Error("Failed to fetch services")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	json.NewEncoder(w).Encode(services)
+	logger.Log.Info("Services retrieved successfully")
 }
 
 func GetService(w http.ResponseWriter, r *http.Request) {
-	log.Println("GetService called")
+	logger.Log.WithFields(logrus.Fields{
+		"method":   r.Method,
+		"endpoint": "/service",
+	}).Info("Handling the get services request")
 	vars := mux.Vars(r)
 	id := vars["id"]
 	service, err := backend.GetService(backend.DB, id)
 	if err != nil {
+		logger.Log.WithFields(logrus.Fields{
+			"error": err.Error(),
+		}).Error("Failed to fetch service")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	if service == nil {
+		logger.Log.WithFields(logrus.Fields{
+			"error": err.Error(),
+		}).Error("Service not found")
 		http.Error(w, "Service not found", http.StatusNotFound)
 		return
 	}
 	json.NewEncoder(w).Encode(service)
+	logger.Log.Info("Service retrieved successfully")
 }
 
 func GetServiceVersionsDB(w http.ResponseWriter, r *http.Request) {

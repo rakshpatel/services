@@ -3,12 +3,19 @@ package backend
 import (
 	"database/sql"
 	"service-catalog/datamodels"
+	"service-catalog/logger"
+
+	"github.com/sirupsen/logrus"
 )
 
 // DB
 func GetServices(db *sql.DB) ([]datamodels.Service, error) {
+	logger.Log.Info("Fetching all services from the database")
 	rows, err := db.Query("SELECT id, name, description FROM services")
 	if err != nil {
+		logger.Log.WithFields(logrus.Fields{
+			"error": err.Error(),
+		}).Error("Error fetching all services from database")
 		return nil, err
 	}
 	defer rows.Close()
@@ -29,12 +36,19 @@ func GetServices(db *sql.DB) ([]datamodels.Service, error) {
 }
 
 func GetService(db *sql.DB, id string) (*datamodels.Service, error) {
+	logger.Log.Info("Fetching a service from the database")
 	var service datamodels.Service
 	err := db.QueryRow("SELECT id, name, description FROM services WHERE id = $1", id).Scan(&service.ID, &service.Name, &service.Description)
 	if err != nil {
 		if err == sql.ErrNoRows {
+			logger.Log.WithFields(logrus.Fields{
+				"error": err.Error(),
+			}).Error("no service found in database")
 			return nil, nil
 		}
+		logger.Log.WithFields(logrus.Fields{
+			"error": err.Error(),
+		}).Error("Error fetching a service from database")
 		return nil, err
 	}
 	return &service, nil
