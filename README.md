@@ -74,7 +74,7 @@ make up
 docker-compose up -d
 ```
 
-#### To examie the logs 
+#### To examine the logs 
 ```bash
 # Logs with make
 make logs
