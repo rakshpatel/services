@@ -66,13 +66,6 @@ func GetService(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	service, err := backend.GetService(backend.DB, id)
-	if err != nil {
-		logger.Log.WithFields(logrus.Fields{
-			"error": err.Error(),
-		}).Error("Failed to fetch service")
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
 	if service == nil {
 		logger.Log.WithFields(logrus.Fields{
 			"error": err.Error(),
@@ -80,6 +73,14 @@ func GetService(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Service not found", http.StatusNotFound)
 		return
 	}
+	if err != nil {
+		logger.Log.WithFields(logrus.Fields{
+			"error": err.Error(),
+		}).Error("Failed to fetch service")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	json.NewEncoder(w).Encode(service)
 	logger.Log.Info("Service retrieved successfully")
 }
