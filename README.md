@@ -90,7 +90,7 @@ make logs
 docker-compose logs
 ```
 
-#### To stop the Services
+#### To Stop the Services
 ```bash
 # Stop the application with make
 make down
@@ -133,3 +133,8 @@ curl -X GET http://localhost:8080/v1/services/1 \
 curl -X GET http://localhost:8080/v1/services/1/versions \
 -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
+
+## Future Improvements
+- Update middleware and integrate with actual system for Authn/Authz
+- Exhaustive logging
+- Implement iterface for DB interaction and add test with mocking API calls
