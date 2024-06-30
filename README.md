@@ -49,7 +49,7 @@ Before you begin, ensure you have met the following requirements:
 
 To get the application running locally, follow these steps:
 
-### 1. Clone the Repository
+### Clone the Repository
 
 Start by cloning the repository to your local machine. To do this, open a terminal and run the following command:
 
@@ -67,9 +67,22 @@ This section details how to use Docker Compose to build and start the services d
 To build and start your services in detached mode, run the following command in your terminal:
 
 ```bash
-# If you want to use make
+# Start application with make
 make up
 
-# If you are using docker-compose tool
+# Stat application with docker-compose tool
 docker-compose up -d
+
+# Logs with make
+make logs
+
+# Logs with docker-compose tool
+docker-compose logs
+
+# Stop the application with make
+make down
+
+# Stop the application with docker-compose
+docker-compose down
+
 ```
