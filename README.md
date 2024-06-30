@@ -32,8 +32,9 @@ The Service-Catalog project is a backend application designed to serve data abou
 |-- main.go                    # Entry point of the application
 |-- Makefile                   # Makefile for simplifying build and deploy commands
 |-- README.md                  # This file
+```
 
-### Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
@@ -55,13 +56,13 @@ Start by cloning the repository to your local machine. To do this, open a termin
 ```bash
 git clone https://github.com/rakshpatel/services.git
 cd service-catalog
-
+```
 
 ### Using Docker Compose
 
 This section details how to use Docker Compose to build and start the services defined in the `docker-compose.yml` file:
 
-```markdown
+
 ### 2. Using Docker Compose
 
 Docker Compose is used to define and run multi-container Docker applications. With Docker Compose, you can manage the lifecycle of your application and its components through a single command. Here's how to use it:
@@ -72,3 +73,4 @@ To build and start your services in detached mode, run the following command in 
 
 ```bash
 make up
+```
