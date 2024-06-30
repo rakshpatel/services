@@ -47,9 +47,6 @@ func GetServices(w http.ResponseWriter, r *http.Request) {
 	}).Info("Handling the get services request")
 	services, err := backend.GetServices(backend.DB)
 	if len(services) == 0 {
-		logger.Log.WithFields(logrus.Fields{
-			"error": err.Error(),
-		}).Error("Services not found")
 		http.Error(w, "Service not found", http.StatusNotFound)
 		return
 	}
@@ -74,9 +71,6 @@ func GetService(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 	service, err := backend.GetService(backend.DB, id)
 	if service == nil {
-		logger.Log.WithFields(logrus.Fields{
-			"error": err.Error(),
-		}).Error("Service not found")
 		http.Error(w, "Service not found", http.StatusNotFound)
 		return
 	}
@@ -99,9 +93,6 @@ func GetServiceVersionsDB(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 	versions, err := backend.GetServiceVersionsDB(backend.DB, id)
 	if versions == nil {
-		logger.Log.WithFields(logrus.Fields{
-			"error": err.Error(),
-		}).Error("Versions not found")
 		http.Error(w, "Versions not found", http.StatusNotFound)
 		return
 	}
