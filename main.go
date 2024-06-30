@@ -12,13 +12,20 @@ import (
 func main() {
 	r := mux.NewRouter()
 
+	// AUthentication endpoint
+	r.HandleFunc("/v1/login", handlers.Login).Methods("POST")
+
 	// Authentication Middleware
-	r.Use(auth.AuthMiddleware)
+	// r.Use(auth.AuthMiddleware)
 
 	// Service Handlers
-	r.HandleFunc("/services", handlers.GetServices).Methods("GET")
-	r.HandleFunc("/services/{id}", handlers.GetService).Methods("GET")
-	r.HandleFunc("/services/{id}/versions", handlers.GetServiceVersions).Methods("GET")
+	api := r.PathPrefix("/v1/services").Subrouter()
+	api.Use(auth.JWTAuth)
+	// api.Use(auth.AuthMiddleware)
+
+	api.HandleFunc("", handlers.GetServices).Methods("GET")
+	api.HandleFunc("/{id}", handlers.GetService).Methods("GET")
+	api.HandleFunc("/{id}/versions", handlers.GetServiceVersions).Methods("GET")
 
 	// Prometheus Monitoring
 	// prometheus.RegisterPrometheus(r)
