@@ -62,15 +62,14 @@ cd service-catalog
 
 This section details how to use Docker Compose to build and start the services defined in the `docker-compose.yml` file:
 
-
-### 2. Using Docker Compose
-
-Docker Compose is used to define and run multi-container Docker applications. With Docker Compose, you can manage the lifecycle of your application and its components through a single command. Here's how to use it:
-
 #### Build and Start the Services
 
 To build and start your services in detached mode, run the following command in your terminal:
 
 ```bash
+# If you want to use make
 make up
+
+# If you are using docker-compose tool
+docker-compose up -d
 ```
