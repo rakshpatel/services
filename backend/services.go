@@ -43,8 +43,8 @@ func GetService(db *sql.DB, id string) (*datamodels.Service, error) {
 	if err != nil {
 		if err == sql.ErrNoRows {
 			logger.Log.WithFields(logrus.Fields{
-				"error": err.Error(),
-			}).Error("no service found in database")
+				"service_id": id,
+			}).Info("No service found in database with the given ID")
 			return nil, nil
 		}
 		logger.Log.WithFields(logrus.Fields{
