@@ -122,7 +122,7 @@ curl -X GET http://localhost:8080/v1/services \
 
 ### Retrieve a specific service
 ```bash
-# This retrieves the detaisl for service with ID 1, replace 1 with any value between 1 to 100.
+# This retrieves the details for service with ID 1, replace 1 with any value between 1 to 100.
 curl -X GET http://localhost:8080/v1/services/1 \
 -H "Authorization: Bearer YOUR_JWT_TOKEN"
 
